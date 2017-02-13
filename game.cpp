@@ -39,11 +39,11 @@ public:
         itsPreviousXcoord=4;
         itsPreviousYcoord=4;
         itsPreviousValue=0;
+        Minerals = 0;
     }
-
     void createMap()
     {
-        Minerals = 0;
+
         for(int i = 0 ; i<10 ; i++)
     {
         for (int j=0;j<10;j++){
@@ -86,10 +86,17 @@ public:
         }
         cout<<endl;
 
-        cout << Minerals << endl;
+    }
+    }
+    int updateResourses(int resource)
+    {
+        if( resource == 3)
+        {
+            Minerals++;
 
+        }
     }
-    }
+
     int getXCoord()
     {
         return itsXcoord;
@@ -150,6 +157,7 @@ public:
         map1[a][b]=2;
         system("cls");
         createMap();
+
     }
     void characterMovement()
     {
@@ -176,14 +184,16 @@ public:
                     printCharacter();
                     break;
                 case KEY_SPACEBAR:
-                    if (map1[itsXcoord][itsYcoord] == 3)
+                    if (map1[itsXcoord][itsYcoord]== 3)
                     {
-                        Minerals += 1;
+                        updateResourses(3);
                     }
-
-
                     map1[itsXcoord][itsYcoord]=0;
                     printCharacter();
+                    updateResourses(map1[a][b]);
+                    if(map1[a][b]==3){
+                    cout<<Minerals;
+                    }
                     break;
         }
 

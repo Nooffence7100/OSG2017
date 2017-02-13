@@ -9,18 +9,19 @@ using namespace std;
 #define KEY_DOWN 80
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
+#define KEY_SPACEBAR 32
 int map1[10][10] =
     {
     0,0,0,1,0,0,0,0,0,0,
+    0,0,0,1,0,0,0,0,0,0,
+    0,0,0,1,0,0,0,0,0,0,
+    0,0,0,1,0,0,0,0,0,0,
+    1,1,1,1,1,1,1,1,1,1,
+    0,0,3,1,0,0,0,0,0,0,
+    0,0,0,1,0,0,5,4,0,0,
     0,0,0,1,0,0,0,3,0,0,
     0,0,0,1,0,0,0,0,0,0,
-    0,0,4,1,0,0,0,0,6,0,
-    1,1,1,1,1,1,1,1,1,1,
-    6,0,0,1,0,3,0,0,0,0,
-    0,0,0,1,0,0,0,0,0,0,
-    0,4,0,1,0,0,0,0,0,0,
-    0,0,0,1,0,0,0,0,0,0,
-    0,0,0,1,0,0,5,0,0,0,
+    0,0,0,1,0,0,6,0,0,0,
        };
 class Character
 {
@@ -42,22 +43,21 @@ public:
     {
         for(int i = 0 ; i<10 ; i++)
     {
-        for (int j=0;j<10;j++)
-            {
+        for (int j=0;j<10;j++){
                 if(map1[i][j]==0)
                 {
                     SetConsoleTextAttribute(hConsole, 2);
-                    cout<<"$";
+                    cout<<"~"; //grass
                 }
                 else if(map1[i][j]==1)
                 {
                     SetConsoleTextAttribute(hConsole,9);
-                    cout<<"#";
+                    cout<<"#"; //water
                 }
                 else if(map1[i][j]==2)
                 {
                     SetConsoleTextAttribute(hConsole,12);
-                    cout<<"X";
+                    cout<<"X"; //player
                 }
                 else if(map1[i][j]==3)
                 {
@@ -164,10 +164,14 @@ public:
                     break;
                 case KEY_LEFT:
                     setYcordm(1);
-                    printCharacter();SetConsoleTextAttribute(hConsole,12);
+                    printCharacter();
                     break;
                 case KEY_RIGHT:
                     setYcordp(1);
+                    printCharacter();
+                    break;
+                case KEY_SPACEBAR:
+                    map1[itsXcoord][itsYcoord]=0;
                     printCharacter();
                     break;
         }

@@ -1,93 +1,213 @@
-#if defined(UNICODE) && !defined(_UNICODE)
-    #define _UNICODE
-#elif defined(_UNICODE) && !defined(UNICODE)
-    #define UNICODE
-#endif
-
-#include <tchar.h>
-#include <windows.h>
-
-/*  Declare Windows procedure  */
-LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
-
-/*  Make the class name into a global variable  */
-TCHAR szClassName[ ] = _T("CodeBlocksWindowsApp");
-
-int WINAPI WinMain (HINSTANCE hThisInstance,
-                     HINSTANCE hPrevInstance,
-                     LPSTR lpszArgument,
-                     int nCmdShow)
-{
-    HWND hwnd;               /* This is the handle for our window */
-    MSG messages;            /* Here messages to the application are saved */
-    WNDCLASSEX wincl;        /* Data structure for the windowclass */
-
-    /* The Window structure */
-    wincl.hInstance = hThisInstance;
-    wincl.lpszClassName = szClassName;
-    wincl.lpfnWndProc = WindowProcedure;      /* This function is called by windows */
-    wincl.style = CS_DBLCLKS;                 /* Catch double-clicks */
-    wincl.cbSize = sizeof (WNDCLASSEX);
-
-    /* Use default icon and mouse-pointer */
-    wincl.hIcon = LoadIcon (NULL, IDI_APPLICATION);
-    wincl.hIconSm = LoadIcon (NULL, IDI_APPLICATION);
-    wincl.hCursor = LoadCursor (NULL, IDC_ARROW);
-    wincl.lpszMenuName = NULL;                 /* No menu */
-    wincl.cbClsExtra = 0;                      /* No extra bytes after the window class */
-    wincl.cbWndExtra = 0;                      /* structure or the window instance */
-    /* Use Windows's default colour as the background of the window */
-    wincl.hbrBackground = (HBRUSH) COLOR_BACKGROUND;
-
-    /* Register the window class, and if it fails quit the program */
-    if (!RegisterClassEx (&wincl))
-        return 0;
-
-    /* The class is registered, let's create the program*/
-    hwnd = CreateWindowEx (
-           0,                   /* Extended possibilites for variation */
-           szClassName,         /* Classname */
-           _T("Diggy diggy hole"),       /* Title Text */
-           WS_OVERLAPPEDWINDOW, /* default window */
-           CW_USEDEFAULT,       /* Windows decides the position */
-           CW_USEDEFAULT,       /* where the window ends up on the screen */
-           800,                 /* The programs width */
-           600,                 /* and height in pixels */
-           HWND_DESKTOP,        /* The window is a child-window to desktop */
-           NULL,                /* No menu */
-           hThisInstance,       /* Program Instance handler */
-           NULL                 /* No Window Creation data */
-           );
-
-    /* Make the window visible on the screen */
-    ShowWindow (hwnd, nCmdShow);
-
-    /* Run the message loop. It will run until GetMessage() returns 0 */
-    while (GetMessage (&messages, NULL, 0, 0))
+//From this it should be very simple to increase the size of the map,add color,add points, basically pretty easy from now to do anything we want...
+//Not a bad idea to figure out how to remove the flicker, could ask the guy again...
+#include<iostream>
+#include<windows.h>
+#include<conio.h>
+#include<cstdlib>
+HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+using namespace std;
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_LEFT 75
+#define KEY_RIGHT 77
+#define KEY_SPACEBAR 32
+#define KEY_ESCAPE 27
+int map1[10][10] =
     {
-        /* Translate virtual-key messages into character messages */
-        TranslateMessage(&messages);
-        /* Send message to WindowProcedure */
-        DispatchMessage(&messages);
+    0,0,0,1,0,0,0,0,0,0,
+    0,0,0,1,0,0,0,0,0,0,
+    0,0,0,1,0,0,0,0,0,0,
+    0,0,0,1,0,0,0,0,0,0,
+    1,1,1,1,1,1,1,1,1,1,
+    0,0,3,1,0,0,0,0,0,0,
+    0,0,0,1,0,0,5,4,0,0,
+    0,0,0,1,0,0,0,3,0,0,
+    0,0,0,1,0,0,0,0,0,0,
+    0,0,0,1,0,0,6,0,0,0,
+       };
+
+class Character
+{
+public:
+    int itsPreviousXcoord;
+    int itsPreviousYcoord;
+    int itsPreviousValue;
+    int itsXcoord;
+    int itsYcoord;
+    int Minerals;
+    void setStartingValues()
+    {
+        itsXcoord=4;
+        itsYcoord=4;
+        itsPreviousXcoord=4;
+        itsPreviousYcoord=4;
+        itsPreviousValue=0;
+        Minerals = 0;
     }
 
-    /* The program return-value is 0 - The value that PostQuitMessage() gave */
-    return messages.wParam;
-}
-
-
-/*  This function is called by the Windows function DispatchMessage()  */
-
-LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    switch (message)                  /* handle the messages */
+    void createMap()
     {
-        case WM_DESTROY:
-            PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
-            break;
-        default:                      /* for messages that we don't deal with */
-            return DefWindowProc (hwnd, message, wParam, lParam);
+
+        for(int i = 0 ; i<10 ; i++)
+    {
+        for (int j=0;j<10;j++){
+                if(map1[i][j]==0)
+                {
+                    SetConsoleTextAttribute(hConsole, 2);
+                    cout<<"~"; //grass
+                }
+                else if(map1[i][j]==1)
+                {
+                    SetConsoleTextAttribute(hConsole,9);
+                    cout<<"#"; //water
+                }
+                else if(map1[i][j]==2)
+                {
+                    SetConsoleTextAttribute(hConsole,12);
+                    cout<<"X"; //player
+                }
+                else if(map1[i][j]==3)
+                {
+                    SetConsoleTextAttribute(hConsole,6);
+                    cout<<"M"; //minerals
+                }
+                else if(map1[i][j]==4)
+                {
+                    SetConsoleTextAttribute(hConsole,10);
+                    cout<<"W"; //wood
+                }
+                else if(map1[i][j]==5)
+                {
+                    SetConsoleTextAttribute(hConsole,14);
+                    cout<<"G"; //gold
+                }
+                else if(map1[i][j]==6)
+                {
+                    SetConsoleTextAttribute(hConsole,4);
+                    cout<<"F"; //food
+                }
+
+        }
+        cout<<endl;
+
+    }
+    cout << Minerals << endl;
+    }
+    int getXCoord()
+    {
+        return itsXcoord;
     }
 
-    return 0;
+    void setXcord(int xCoord){
+    itsXcoord = itsXcoord + xCoord;
+    }
+
+    void setXcordm(int a){
+        if(itsXcoord>0)
+        {
+            itsXcoord = itsXcoord - a ;
+    }
+    }
+
+    void setXcordp(int a){
+        if(itsXcoord<9){
+    itsXcoord= itsXcoord + a;
+    }
+    }
+
+    int getYCoord()
+    {
+        return itsYcoord;
+    }
+
+    void setYcord(int yCoord){
+    if(yCoord>-1){
+    itsYcoord = itsYcoord + yCoord;
+    }
+    }
+
+    void setYcordm(int a){
+
+    if(itsYcoord>0)
+    {
+    itsYcoord=itsYcoord-a;
+    }
+    }
+
+    void setYcordp(int a){
+        if(itsYcoord<9){
+    itsYcoord=itsYcoord+a;
+    }
+    }
+
+    int printCharacter()
+    {
+        int a=itsXcoord,b=itsYcoord;
+        int px=itsPreviousXcoord;
+        itsPreviousXcoord=itsXcoord;
+        int py=itsPreviousYcoord;
+        itsPreviousYcoord=itsYcoord;
+        int pv=itsPreviousValue;
+        if(map1[a][b]!=2){
+        itsPreviousValue=map1[a][b];
+        }
+        map1[px][py]=pv;
+        map1[a][b]=2;
+        system("cls");
+        createMap();
+    }
+    void characterMovement()
+    {
+        int c=0,a=0,b=0;
+        do
+            {
+                c = 0;
+
+                switch((c=getch())) {cout << Minerals << endl;
+                case KEY_UP:
+                    setXcordm(1);
+                    printCharacter();
+                    break;
+                case KEY_DOWN:
+                    setXcordp(1);
+                    printCharacter();
+                    break;
+                case KEY_LEFT:
+                    setYcordm(1);
+                    printCharacter();
+                    break;
+                case KEY_RIGHT:
+                    setYcordp(1);
+                    printCharacter();
+                    break;
+                case KEY_SPACEBAR:
+                    map1[itsXcoord][itsYcoord]=0;
+                    printCharacter();
+                    break;
+                case KEY_ESCAPE:
+                    string exit_game;
+                    cout<<"Do you want to exit? (Y/N)" << endl;
+                    cin>> exit_game;
+                    if(exit_game=="Y"||exit_game=="y"||exit_game=="yes"||exit_game=="YES"||exit_game=="Yes")
+                    exit(0);
+
+
+
+        }
+
+    }
+    while(1);
+    }
+};
+
+int main()
+{
+int Minerals;
+Character Hero;
+Hero.setStartingValues();
+Hero.createMap();
+Hero.printCharacter();
+Hero.characterMovement();
+cout << Minerals << endl;
+return 0;
 }

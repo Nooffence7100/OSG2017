@@ -3,7 +3,7 @@ Old School Game (Semester 2)
 
 ## Introduction
 
-#### inspiration
+#### Inspiration
 Inspired by the pixelated, epically large scale mining game called Dwarf Fortress. It's designed to incase the gamer with its exciting yet somewhat endless resource collecting via in game map. However building the user's imagination through allowing them to create their own buidlings. It a game built by craftemenship, that which we will come to create.
 
 #### Direction

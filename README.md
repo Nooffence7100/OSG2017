@@ -5,7 +5,7 @@ Inspired by the pixelated, epically large scale mining game called Dwarf Fortres
 
 Our method of programming will be using the complex yet majestic language C++ to implement the game's structure and game character. Difficult as it may be It'll  be through using varies platform such as codeblock for our Linux users and Windows observes. 
 
-Here is a simple yet direct list if our game plan.
+Here is a simple yet direct list of our game plan.
 
 Language: C++
 

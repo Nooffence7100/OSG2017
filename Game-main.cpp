@@ -30,7 +30,7 @@ public:
     int itsPreviousValue;
     int itsXcoord;
     int itsYcoord;
-    void Character::setStartingValues()
+    void setStartingValues()
     {
         itsXcoord=4;
         itsYcoord=4;
@@ -38,11 +38,12 @@ public:
         itsPreviousYcoord=4;
         itsPreviousValue=0;
     }
-    void Character::createMap()
+    void createMap()
     {
         for(int i = 0 ; i<10 ; i++)
     {
-        for (int j=0;j<10;j++){
+        for (int j=0;j<10;j++)
+            {
                 if(map1[i][j]==0)
                 {
                     SetConsoleTextAttribute(hConsole, 2);
@@ -64,40 +65,40 @@ public:
 
     }
     }
-    int Character::getXCoord()
+    int getXCoord()
     {
         return itsXcoord;
     }
 
-    void Character::setXcord(int xCoord){
+    void setXcord(int xCoord){
     itsXcoord = itsXcoord + xCoord;
     }
 
-    void Character::setXcordm(int a){
+    void setXcordm(int a){
         if(itsXcoord>0)
         {
             itsXcoord = itsXcoord - a ;
     }
     }
 
-    void Character::setXcordp(int a){
+    void setXcordp(int a){
         if(itsXcoord<9){
     itsXcoord= itsXcoord + a;
     }
     }
 
-    int Character::getYCoord()
+    int getYCoord()
     {
         return itsYcoord;
     }
 
-    void Character::setYcord(int yCoord){
+    void setYcord(int yCoord){
     if(yCoord>-1){
     itsYcoord = itsYcoord + yCoord;
     }
     }
 
-    void Character::setYcordm(int a){
+    void setYcordm(int a){
 
     if(itsYcoord>0)
     {
@@ -105,13 +106,13 @@ public:
     }
     }
 
-    void Character::setYcordp(int a){
+    void setYcordp(int a){
         if(itsYcoord<9){
     itsYcoord=itsYcoord+a;
     }
     }
 
-    int Character::printCharacter()
+    int printCharacter()
     {
         int a=itsXcoord,b=itsYcoord;
         int px=itsPreviousXcoord;
@@ -125,7 +126,7 @@ public:
         system("cls");
         createMap();
     }
-    void Character::characterMovement()
+    void characterMovement()
     {
         int c=0,a=0,b=0;
         do

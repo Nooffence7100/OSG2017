@@ -24,7 +24,7 @@ int map1[10][10] =
     0,0,0,1,0,0,0,0,0,0,
     0,4,0,1,0,0,0,0,0,0,
     0,0,0,1,0,0,0,0,0,0,
-    0,0,0,1,0,0,5,0,0,0,
+    0,0,0,1,0,0,3,0,0,0,
        };
 class Character
 {
@@ -34,6 +34,11 @@ public:
     int itsPreviousValue;
     int itsXcoord;
     int itsYcoord;
+    int monster1Xcoord;
+    int monster1PreviousXcoord;
+    int monster1Ycoord;
+    int monster1PreviousYcoord;
+    int monster1PreviousValue;
     void setStartingValues()
     {
         itsXcoord = 4;
@@ -41,6 +46,12 @@ public:
         itsPreviousXcoord = 4;
         itsPreviousYcoord = 4;
         itsPreviousValue = 0;
+        monster1Xcoord = 7;
+        monster1Ycoord = 7;
+        monster1PreviousXcoord = 7;
+        monster1PreviousYcoord = 7;
+        monster1PreviousValue = map1[7][7];
+
     }
     void createMap()
     {
@@ -76,7 +87,7 @@ public:
                 else if(map1[i][j] == 5)
                 {
                     SetConsoleTextAttribute(hConsole,14);
-                    cout<<"G"; //gold
+                    cout<<"Z"; //gold
                 }
                 else if(map1[i][j] == 6)
                 {
@@ -97,6 +108,27 @@ public:
     void setXcord(int xCoord){
         itsXcoord = itsXcoord + xCoord;
     }
+
+    void setMonsterXcoordm()
+    {
+        monster1Xcoord = monster1Xcoord - 1;
+    }
+
+    void setMonsterXcoordp()
+    {
+        monster1Xcoord = monster1Xcoord + 1;
+    }
+
+    void setMonsterYcoordm()
+    {
+        monster1Ycoord = monster1Ycoord - 1;
+    }
+
+    void setMonsterYcoordp()
+    {
+        monster1Ycoord = monster1Ycoord + 1;
+    }
+
 
     void setXcordm(int a){
         if(itsXcoord > 0)
@@ -129,7 +161,10 @@ public:
             itsYcoord = itsYcoord - a;
     }
     }
-
+void setMonsterXcoord()
+    {
+        monster1Xcoord = monster1Xcoord + 1;
+    }
     void setYcordp(int a){
         if(itsYcoord < 9){
             itsYcoord = itsYcoord + a;
@@ -139,19 +174,36 @@ public:
     int printCharacter()
     {
         int a = itsXcoord,b = itsYcoord;
+        int ma= monster1Xcoord, mb = monster1Ycoord;
         int px = itsPreviousXcoord;
+        int pmx = monster1PreviousXcoord;
         itsPreviousXcoord = itsXcoord;
+        monster1PreviousXcoord = monster1Xcoord;
         int py = itsPreviousYcoord;
+        int pmy = monster1PreviousYcoord;
         itsPreviousYcoord = itsYcoord;
+        monster1PreviousYcoord = monster1Ycoord;
         int pv = itsPreviousValue;
+        int pmv = monster1PreviousValue;
         if(map1[a][b]!=2)
         {
             itsPreviousValue = map1[a][b];
         }
+        if(map1[a][b]!=5)
+        {
+            monster1PreviousValue = map1[a][b];
+        }
+        map1[pmx][pmy] = pmv;
         map1[px][py] = pv;
         map1[a][b] = 2;
+        map1[ma][mb] = 5;
         system("cls");
         createMap();
+        if(map1[a][b]==map1[ma][mb])
+        {
+            cout<<"You were eaten!"<<endl;
+            exit(0);
+        }
     }
     void characterMovement()
     {
@@ -192,9 +244,14 @@ public:
                     cin>> exit_game;
                     if(exit_game == "Y" || exit_game == "y" || exit_game == "yes" || exit_game == "YES" || exit_game == "Yes")
                     exit(0);
+                    else
+                    {
+                        system("cls");
+                        printCharacter();
+                    }
 
         }
-
+        Sleep(25);
     }
     while(1);
     }
@@ -206,9 +263,6 @@ int main()
     cin >>  start_game;
     //Sleep(500);
 
-
-while ((start_game == "yes") || (start_game == "YES") || (start_game == "Y") || (start_game == "y") || (start_game == "no") || (start_game == "NO") || (start_game == "n") || (start_game == "N"))
-{
     if ((start_game == "yes") || (start_game == "YES") || (start_game == "Y") || (start_game == "y"))
         {
             Character Hero;
@@ -232,18 +286,17 @@ while ((start_game == "yes") || (start_game == "YES") || (start_game == "Y") || 
         else
         {
             cout << "You left the game" << endl;
-            break;
         }
-
     }
+
+
 
 
 
     else if ((start_game == "no") || (start_game == "NO") || (start_game == "n") || (start_game == "N"))
     cout << "You left the game" << endl;
-    break;
-}
+
+
 
 return 0;
 }
-

@@ -117,6 +117,9 @@ using namespace std;
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,6,6,6,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,6,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
           };
+int minerals;
+int food;
+int wood;
 
 class Character
 {
@@ -133,6 +136,9 @@ public:
     int monster1Ycoord;
     int monster1PreviousYcoord;
     int monster1PreviousValue;
+    int minerals;
+    int food;
+    int wood;
 
     void setStartingValues()
     {
@@ -148,14 +154,16 @@ public:
         monster1PreviousXcoord = 62;
         monster1PreviousYcoord = 65;
         monster1PreviousValue = map2[62][65];
-
+        minerals = 0;
+        food = 0;
+        wood = 0;
     }
     void createMap2()
     {
         SetConsoleTextAttribute(hConsole,14);
         cout<<"                         ###############################"<<endl;
         for(int i = maptXcoord ; i < maptXcoord + 19 ; i++)
-    {
+        {
         cout<<"                         #";
         for(int j = maptYcoord ; j < maptYcoord + 29 ; j++)
             {
@@ -199,7 +207,7 @@ public:
         cout<<"#";
         cout << endl;
 
-    }
+        }
     SetConsoleTextAttribute(hConsole,14);
         cout<<"                         ###############################"<<endl;
     }
@@ -323,11 +331,30 @@ public:
         system("cls");
         cout<<endl<<endl;
         createMap2();
+        cout<<"Minerals: "<<minerals<<endl;
+        cout<<"Wood: "<<wood<<endl;
+        cout<<"Food: "<<food<<endl;
         if(map2[a][b]==map2[ma][mb])
         {
             cout<<"You were eaten!"<<endl;
             exit(0);
         }
+    }
+    void add_resource(int pv)
+    {
+        if (pv == 3)
+        {
+            minerals++;
+        }
+        else if (pv == 4)
+        {
+            wood++;
+        }
+        else if (pv == 6)
+        {
+            food++;
+        }
+
     }
     void characterMovement()
     {
@@ -381,7 +408,14 @@ public:
                         break;
 
                 case KEY_SPACEBAR:
-                    map2[itsXcoord][itsYcoord] = 0 ;
+                    if (itsPreviousValue != 0)
+                    {
+                        add_resource(itsPreviousValue);
+                    }
+                    if(itsPreviousValue != 0 && itsPreviousValue != 1)
+                    {
+                        map2[itsXcoord][itsYcoord] = 0;
+                    }
                     printCharacter();
                     break;
 

@@ -12,7 +12,7 @@ using namespace std;
 #define KEY_SPACEBAR 32
 #define KEY_ESCAPE 27
 
-  int map2 [100][100] =
+  int map2 [100][100] = // this is the map
   {
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,4,0,0,0,
@@ -115,11 +115,11 @@ using namespace std;
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,6,6,6,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,6,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
           };
-int minerals;
+int stone;
 int food;
 int wood;
 
-class Character
+class Character // character class ,but it holds basically everything
 {
 public:
     int maptXcoord;
@@ -134,11 +134,11 @@ public:
     int monster1Ycoord;
     int monster1PreviousYcoord;
     int monster1PreviousValue;
-    int minerals;
+    int stone;
     int food;
     int wood;
 
-    void setStartingValues()
+    void setStartingValues() // sets the starting values of the variables
     {
         maptXcoord = 45;
         maptYcoord = 45;
@@ -152,13 +152,13 @@ public:
         monster1PreviousXcoord = 62;
         monster1PreviousYcoord = 65;
         monster1PreviousValue = map2[62][65];
-        minerals = 0;
+        stone = 0;
         food = 0;
         wood = 0;
     }
-    void createMap2()
+    void createMap2() // function to print the map on the screen
     {
-        SetConsoleTextAttribute(hConsole,14);
+        SetConsoleTextAttribute(hConsole,14); // changes the color
         cout<<"                         ###############################"<<endl;
         for(int i = maptXcoord ; i < maptXcoord + 19 ; i++)
         {
@@ -167,60 +167,60 @@ public:
             {
                 if(map2[i][j] == 0)
                 {
-                    SetConsoleTextAttribute(hConsole, 2);
+                    SetConsoleTextAttribute(hConsole, 2); // changes the color
                     cout<<"$";
                 }
                 else if(map2[i][j] == 1)
                 {
-                    SetConsoleTextAttribute(hConsole,9);
+                    SetConsoleTextAttribute(hConsole,9); // changes the color
                     cout<<"#";
                 }
                 else if(map2[i][j] == 2)
                 {
-                    SetConsoleTextAttribute(hConsole,12);
+                    SetConsoleTextAttribute(hConsole,12); // changes the color
                     cout<<"X";
                 }
                 else if(map2[i][j] == 3)
                 {
-                    SetConsoleTextAttribute(hConsole,6);
-                    cout<<"M"; //minerals
+                    SetConsoleTextAttribute(hConsole,6); // changes the color
+                    cout<<"R"; //stone
                 }
                 else if(map2[i][j] == 4)
                 {
-                    SetConsoleTextAttribute(hConsole,10);
+                    SetConsoleTextAttribute(hConsole,10); // changes the color
                     cout<<"W"; //wood
                 }
                 else if(map2[i][j] == 5)
                 {
-                    SetConsoleTextAttribute(hConsole,14);
+                    SetConsoleTextAttribute(hConsole,14); // changes the color
                     cout<<"Z";
                 }
                 else if(map2[i][j] == 6)
                 {
-                    SetConsoleTextAttribute(hConsole,4);
+                    SetConsoleTextAttribute(hConsole,4); // changes the color
                     cout << "F"; //food
                 }
         }
-        SetConsoleTextAttribute(hConsole,14);
+        SetConsoleTextAttribute(hConsole,14); // changes the color
         cout<<"#";
         cout << endl;
 
         }
-    SetConsoleTextAttribute(hConsole,14);
+    SetConsoleTextAttribute(hConsole,14); // changes the color
         cout<<"                         ###############################"<<endl;
     }
-    int getXCoord()
+    int getXCoord() // gets the X coordinates of the character and returns them if needed outside of the class
     {
         return itsXcoord;
     }
 
-    void setMonsterCoordNew()
+    void setMonsterCoordNew() // sets the new X,Y coordinates for the Zombie
     {
-        int mnp = rand() % 5 + 1;
+        int mnp = rand() % 5 + 1; // creates random number between 1 and 4, to choose direction
 
-        if(mnp == 1)
+        if(mnp == 1) // zombie goes down
         {
-            if(monster1Xcoord < 99)
+            if(monster1Xcoord < 97)
             {
                 monster1Xcoord++;
             }
@@ -229,7 +229,7 @@ public:
                 setMonsterCoordNew();
             }
         }
-        else if(mnp == 2)
+        else if(mnp == 2) // zombie goes left
         {
             if(monster1Ycoord > 0)
             {
@@ -240,9 +240,9 @@ public:
                 setMonsterCoordNew();
             }
         }
-        else if(mnp == 3)
+        else if(mnp == 3) // zombie goes right
         {
-            if(monster1Ycoord < 99)
+            if(monster1Ycoord < 97)
             {
                 monster1Ycoord++;
             }
@@ -252,7 +252,7 @@ public:
             }
 
         }
-        else if(mnp == 4)
+        else if(mnp == 4) // zombie goes up
         {
             if(monster1Xcoord > 0)
             {
@@ -265,25 +265,25 @@ public:
         }
     }
 
-    void setXcordm(int a){
+    void setXcordm(int a){ // decreases the X value, character moves up
         if(itsXcoord > 0)
         {
             itsXcoord = itsXcoord - a ;
     }
     }
 
-    void setXcordp(int a){
+    void setXcordp(int a){ // increases the X value, character moves down
         if(itsXcoord < 97){
             itsXcoord = itsXcoord + a;
     }
     }
 
-    int getYCoord()
+    int getYCoord() // gets the Y coordinates of the character and returns them if needed outside of the class
     {
         return itsYcoord;
     }
 
-    void setYcordm(int a){
+    void setYcordm(int a){ // decreases the Y value, character moves left
 
         if(itsYcoord > 0)
     {
@@ -291,13 +291,13 @@ public:
     }
     }
 
-    void setYcordp(int a){
+    void setYcordp(int a){ // increases the Y value, character moves right
         if(itsYcoord < 97){
             itsYcoord = itsYcoord + a;
                          }
     }
 
-    int printCharacter()
+    int printCharacter() // sets character previous value/coordinates , updates the information of the map
     {
         int a = itsXcoord,b = itsYcoord;
         int ma= monster1Xcoord, mb = monster1Ycoord;
@@ -329,7 +329,7 @@ public:
         system("cls");
         cout<<endl<<endl;
         createMap2();
-        cout<<"Minerals: "<<minerals;
+        cout<<"Stone: "<<stone;
         cout<<"  Wood: "<<wood;
         cout<<"  Food: "<<food<<endl;
         if(map2[a][b]==map2[ma][mb])
@@ -338,11 +338,11 @@ public:
             exit(0);
         }
     }
-    void add_resource(int pv)
+    void add_resource(int pv) // resource counter
     {
         if (pv == 3)
         {
-            minerals++;
+            stone += 5;
         }
         else if (pv == 4)
         {
@@ -355,7 +355,7 @@ public:
 
     }
 
-   void characterMovement()
+   void characterMovement() // Character movement, key press monitor
     {
         int c = 0;
 

@@ -1,5 +1,3 @@
-//From this it should be very simple to increase the size of the map,add color,add points, basically pretty easy from now to do anything we want...
-//Not a bad idea to figure out how to remove the flicker, could ask the guy again...
 #include<iostream>
 #include<windows.h>
 #include<conio.h>
@@ -117,6 +115,9 @@ using namespace std;
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,6,6,6,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,6,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
           };
+int minerals;
+int food;
+int wood;
 
 class Character
 {
@@ -133,6 +134,9 @@ public:
     int monster1Ycoord;
     int monster1PreviousYcoord;
     int monster1PreviousValue;
+    int minerals;
+    int food;
+    int wood;
 
     void setStartingValues()
     {
@@ -148,14 +152,16 @@ public:
         monster1PreviousXcoord = 62;
         monster1PreviousYcoord = 65;
         monster1PreviousValue = map2[62][65];
-
+        minerals = 0;
+        food = 0;
+        wood = 0;
     }
     void createMap2()
     {
         SetConsoleTextAttribute(hConsole,14);
         cout<<"                         ###############################"<<endl;
         for(int i = maptXcoord ; i < maptXcoord + 19 ; i++)
-    {
+        {
         cout<<"                         #";
         for(int j = maptYcoord ; j < maptYcoord + 29 ; j++)
             {
@@ -199,7 +205,7 @@ public:
         cout<<"#";
         cout << endl;
 
-    }
+        }
     SetConsoleTextAttribute(hConsole,14);
         cout<<"                         ###############################"<<endl;
     }
@@ -323,42 +329,52 @@ public:
         system("cls");
         cout<<endl<<endl;
         createMap2();
+        cout<<"Minerals: "<<minerals;
+        cout<<"  Wood: "<<wood;
+        cout<<"  Food: "<<food<<endl;
         if(map2[a][b]==map2[ma][mb])
         {
             cout<<"You were eaten!"<<endl;
             exit(0);
         }
     }
+    void add_resource(int pv)
+    {
+        if (pv == 3)
+        {
+            minerals++;
+        }
+        else if (pv == 4)
+        {
+            wood++;
+        }
+        else if (pv == 6)
+        {
+            food++;
+        }
+
+    }
+
     void characterMovement()
     {
         int c = 0;
-
         do
             {
                 c = 0;
 
                 switch ( ( c = getch() ) ) {
                 case KEY_UP:
-                    if (map2[itsXcoord -1][itsYcoord] != 1) //----> Water movement correction
+                    if(maptXcoord>0 && maptXcoord == itsXcoord - 9)
                     {
-                        if(maptXcoord>0 && maptXcoord == itsXcoord - 9)
-                        {
-                            maptXcoord--;
-                        }
+                        maptXcoord--;
+                    }
                         setXcordm(1);
                         setMonsterCoordNew();
                         printCharacter();
                         break;
-                    }
-                    else{break;}
-
 
 
                 case KEY_DOWN:
-                    if (map2[itsXcoord +1][itsYcoord] != 1) //----> Water movement correction
-                    {
-
-
                     if(maptXcoord<79 && maptXcoord == itsXcoord - 9)
                     {
                         maptXcoord++;
@@ -367,16 +383,9 @@ public:
                         setMonsterCoordNew();
                         printCharacter();
                         break;
-                    }
-                    else
-                        break;
 
 
                 case KEY_LEFT:
-                    if (map2[itsXcoord][itsYcoord -1] != 1) //----> Water movement correction
-                    {
-
-
                     if(maptYcoord>0 && maptYcoord == itsYcoord - 14)
                     {
                         maptYcoord--;
@@ -385,15 +394,9 @@ public:
                         setMonsterCoordNew();
                         printCharacter();
                         break;
-                    }
-                    else
-                        break;
+
 
                 case KEY_RIGHT:
-                    if (map2[itsXcoord][itsYcoord +1] != 1) //----> Water movement correction
-                    {
-
-
                     if(maptYcoord<69 && maptYcoord == itsYcoord -14)
                     {
                         maptYcoord++;
@@ -402,11 +405,13 @@ public:
                         setMonsterCoordNew();
                         printCharacter();
                         break;
-                    }
-                    else
-                        break;
+
                 case KEY_SPACEBAR:
-                    map2[itsXcoord][itsYcoord] = 0 ;
+                    if(itsPreviousValue == 3 || itsPreviousValue == 4 || itsPreviousValue == 6)
+                    {
+                        add_resource(itsPreviousValue);
+                        map2[itsXcoord][itsYcoord] = 0;
+                    }
                     printCharacter();
                     break;
 
@@ -427,10 +432,6 @@ public:
     }
     while(1);
     }
-
-
-
-
 };
 int main()
 {

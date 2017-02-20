@@ -355,26 +355,36 @@ public:
 
     }
 
-    void characterMovement()
+   void characterMovement()
     {
         int c = 0;
+
         do
             {
                 c = 0;
 
                 switch ( ( c = getch() ) ) {
                 case KEY_UP:
-                    if(maptXcoord>0 && maptXcoord == itsXcoord - 9)
+                    if (map2[itsXcoord -1][itsYcoord] != 1) //----> Water movement correction
                     {
-                        maptXcoord--;
-                    }
+                        if(maptXcoord>0 && maptXcoord == itsXcoord - 9)
+                        {
+                            maptXcoord--;
+                        }
                         setXcordm(1);
                         setMonsterCoordNew();
                         printCharacter();
                         break;
+                    }
+                    else{break;}
+
 
 
                 case KEY_DOWN:
+                    if (map2[itsXcoord +1][itsYcoord] != 1) //----> Water movement correction
+                    {
+
+
                     if(maptXcoord<79 && maptXcoord == itsXcoord - 9)
                     {
                         maptXcoord++;
@@ -383,9 +393,16 @@ public:
                         setMonsterCoordNew();
                         printCharacter();
                         break;
+                    }
+                    else
+                        break;
 
 
                 case KEY_LEFT:
+                    if (map2[itsXcoord][itsYcoord -1] != 1) //----> Water movement correction
+                    {
+
+
                     if(maptYcoord>0 && maptYcoord == itsYcoord - 14)
                     {
                         maptYcoord--;
@@ -394,9 +411,15 @@ public:
                         setMonsterCoordNew();
                         printCharacter();
                         break;
-
+                    }
+                    else
+                        break;
 
                 case KEY_RIGHT:
+                    if (map2[itsXcoord][itsYcoord +1] != 1) //----> Water movement correction
+                    {
+
+
                     if(maptYcoord<69 && maptYcoord == itsYcoord -14)
                     {
                         maptYcoord++;
@@ -405,13 +428,11 @@ public:
                         setMonsterCoordNew();
                         printCharacter();
                         break;
-
-                case KEY_SPACEBAR:
-                    if(itsPreviousValue == 3 || itsPreviousValue == 4 || itsPreviousValue == 6)
-                    {
-                        add_resource(itsPreviousValue);
-                        map2[itsXcoord][itsYcoord] = 0;
                     }
+                    else
+                        break;
+                case KEY_SPACEBAR:
+                    map2[itsXcoord][itsYcoord] = 0 ;
                     printCharacter();
                     break;
 

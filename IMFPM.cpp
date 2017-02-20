@@ -408,12 +408,9 @@ public:
                         break;
 
                 case KEY_SPACEBAR:
-                    if (itsPreviousValue != 0)
+                    if(itsPreviousValue == 3 && itsPreviousValue == 4 && itsPreviousValue == 6)
                     {
-                        add_resource(itsPreviousValue);
-                    }
-                    if(itsPreviousValue != 0 && itsPreviousValue != 1)
-                    {
+                        add_resource(itsPreviousValue)
                         map2[itsXcoord][itsYcoord] = 0;
                     }
                     printCharacter();

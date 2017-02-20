@@ -432,7 +432,11 @@ public:
                     else
                         break;
                 case KEY_SPACEBAR:
-                    map2[itsXcoord][itsYcoord] = 0 ;
+                    if(itsPreviousValue == 3 || itsPreviousValue == 4 || itsPreviousValue == 6)
+                    {
+                        add_resource(itsPreviousValue);
+                        map2[itsXcoord][itsYcoord] = 0;
+                    }
                     printCharacter();
                     break;
 

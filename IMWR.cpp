@@ -10,9 +10,10 @@ using namespace std;
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 #define KEY_SPACEBAR 32
+#define KEY_F2 60
 #define KEY_ESCAPE 27
 
-  int map2 [100][100] = // this is the infinite map
+    int map2 [100][100] = // this is the infinite map
   {
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,6,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,6,0,0,0,0,0,0,0,0,0,1,
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,0,0,4,4,4,4,4,0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,6,6,0,4,4,4,4,4,0,0,1,
@@ -116,9 +117,6 @@ using namespace std;
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,6,6,6,6,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,3,3,3,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 
           };
-int stone;
-int food;
-int wood;
 
 class Character // character class ,but it holds basically everything
 {
@@ -138,9 +136,11 @@ public:
     int stone;
     int food;
     int wood;
+    bool backpack;
 
     void setStartingValues() // sets the starting values of the variables
     {
+        backpack = false;
         maptXcoord = 45;
         maptYcoord = 45;
         itsXcoord = 54;
@@ -210,6 +210,34 @@ public:
     SetConsoleTextAttribute(hConsole,14); // changes the color
         cout<<"                         ###############################"<<endl;
     }
+
+    void backPack()
+    {
+        SetConsoleTextAttribute(hConsole,14);
+        cout<<"                         ###############################"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #     Resource  Backpack:     #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         # Current resources available:#"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #"; SetConsoleTextAttribute(hConsole,10); cout<<"    Wood: "<<wood; SetConsoleTextAttribute(hConsole,6); cout<<"   Stone: "<<stone; SetConsoleTextAttribute(hConsole,14); cout<<"       #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #"; SetConsoleTextAttribute(hConsole,4); cout<<"    Food: "<<food;SetConsoleTextAttribute(hConsole,11);cout<<"   Diamond: 0";SetConsoleTextAttribute(hConsole,14);cout<<"     #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         # Resources Needed To Create: #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #"; SetConsoleTextAttribute(hConsole,6); cout<<"    Stone Block: 3 Stones.";SetConsoleTextAttribute(hConsole,14);cout<<"   #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #"; SetConsoleTextAttribute(hConsole,10); cout<<"   3 Wooden Sticks: 1 Wood.";SetConsoleTextAttribute(hConsole,14);cout<<"  #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #"; SetConsoleTextAttribute(hConsole,11); cout<<"  Diamond Armor: 7 Diamonds.";SetConsoleTextAttribute(hConsole,14);cout<<" #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #   To Exit Press F2 Again.   #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         ###############################"<<endl;
+
+    }
+
     int getXCoord() // gets the X coordinates of the character and returns them if needed outside of the class
     {
         return itsXcoord;
@@ -328,11 +356,18 @@ public:
         map2[a][b] = 2;
         map2[ma][mb] = 5;
         system("cls");
-        cout<<endl<<endl;
+        cout<<endl;
+        if(backpack == false)
+        {
         createMap2();
-        cout<<"Stone: "<<stone;
-        cout<<"  Wood: "<<wood;
-        cout<<"  Food: "<<food<<endl;
+        cout<<"                          Stones: "<<stone;
+        cout<<"   Wood: "<<wood;
+        cout<<"   Food: "<<food<<endl<<"                                To Open BP Press F2"<<endl;
+        }
+        else if(backpack == true)
+        {
+            backPack();
+        }
         if(map2[a][b]==map2[ma][mb])
         {
             cout<<"You were eaten!"<<endl;
@@ -365,6 +400,7 @@ public:
                 c = 0;
 
                 switch ( ( c = getch() ) ) {
+
                 case KEY_UP:
                     if (map2[itsXcoord -1][itsYcoord] != 1) //----> Water movement correction
                     {
@@ -378,8 +414,6 @@ public:
                         break;
                     }
                     else{break;}
-
-
 
                 case KEY_DOWN:
                     if (map2[itsXcoord +1][itsYcoord] != 1) //----> Water movement correction
@@ -432,7 +466,9 @@ public:
                     }
                     else
                         break;
+
                 case KEY_SPACEBAR:
+
                     if(itsPreviousValue == 3 || itsPreviousValue == 4 || itsPreviousValue == 6)
                     {
                         add_resource(itsPreviousValue);
@@ -441,12 +477,27 @@ public:
                     printCharacter();
                     break;
 
+                case KEY_F2:
+                    if(backpack == true)
+                    {
+                        backpack = false;
+                        printCharacter();
+                        break;
+                    }
+                    else if ( backpack == false)
+                    {
+                        backpack = true;
+                        printCharacter();
+                        break;
+                    }
+
+
                 case KEY_ESCAPE:
                     string exit_game;
                     cout<<"Do you want to exit?(Y/N) : ";
                     cin>> exit_game;
-                    if(exit_game == "Y" || exit_game == "y" || exit_game == "yes" || exit_game == "YES" || exit_game == "Yes")
-                    exit(0);
+                    if(exit_game == "Y" || exit_game == "y" || exit_game == "yes" || exit_game == "YES" || exit_game == "Yes"){
+                    exit(0);}
                     else
                     {
                         system("cls");

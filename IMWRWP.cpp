@@ -136,6 +136,12 @@ public:
     int stone;
     int food;
     int wood;
+    int directionSymbol;
+    int directionSymbolXcoord;
+    int directionSymbolYcoord;
+    int directionSymbolPreviousXcoord;
+    int directionSymbolPreviousYcoord;
+    int directionSymbolPreviousValue;
     bool backpack;
 
     void setStartingValues() // sets the starting values of the variables
@@ -153,6 +159,10 @@ public:
         monster1PreviousXcoord = 62;
         monster1PreviousYcoord = 65;
         monster1PreviousValue = map2[62][65];
+        directionSymbol = 0;
+        directionSymbolPreviousXcoord = 0;
+        directionSymbolPreviousYcoord = 0;
+        directionSymbolPreviousValue = 1;
         stone = 0;
         food = 0;
         wood = 0;
@@ -169,37 +179,42 @@ public:
                 if(map2[i][j] == 0)
                 {
                     SetConsoleTextAttribute(hConsole, 2); // changes the color
-                    cout<<"$";
+                    cout << "$";
                 }
                 else if(map2[i][j] == 1)
                 {
                     SetConsoleTextAttribute(hConsole,9); // changes the color
-                    cout<<"#";
+                    cout << "#";
                 }
                 else if(map2[i][j] == 2)
                 {
                     SetConsoleTextAttribute(hConsole,12); // changes the color
-                    cout<<"X";
+                    cout << "X";
                 }
                 else if(map2[i][j] == 3)
                 {
                     SetConsoleTextAttribute(hConsole,6); // changes the color
-                    cout<<"R"; //stone
+                    cout << "R"; //stone
                 }
                 else if(map2[i][j] == 4)
                 {
                     SetConsoleTextAttribute(hConsole,10); // changes the color
-                    cout<<"W"; //wood
+                    cout << "W"; //wood
                 }
                 else if(map2[i][j] == 5)
                 {
                     SetConsoleTextAttribute(hConsole,14); // changes the color
-                    cout<<"Z";
+                    cout << "Z";
                 }
                 else if(map2[i][j] == 6)
                 {
                     SetConsoleTextAttribute(hConsole,4); // changes the color
                     cout << "F"; //food
+                }
+                else if(map2[i][j] == 7)
+                {
+                    SetConsoleTextAttribute(hConsole,12); // changes the color to red
+                    cout << "+"; //direction Symbol
                 }
         }
         SetConsoleTextAttribute(hConsole,14); // changes the color
@@ -294,6 +309,77 @@ public:
         }
     }
 
+    void setDirectionSymbolCoord(int d)
+    {
+        if(d == 1)
+        {
+            if(itsXcoord < 96)
+            {
+                map2[directionSymbolPreviousXcoord][directionSymbolPreviousYcoord] = directionSymbolPreviousValue;
+                directionSymbolXcoord = itsXcoord - 1;
+                directionSymbolYcoord = itsYcoord;
+                if(map2[directionSymbolXcoord][directionSymbolYcoord] != 7 && map2[directionSymbolXcoord][directionSymbolYcoord] != 5)
+                {
+                directionSymbolPreviousValue = map2[directionSymbolXcoord][directionSymbolYcoord];
+                }
+                map2[directionSymbolXcoord][directionSymbolYcoord] = 7;
+                directionSymbolPreviousXcoord = directionSymbolXcoord;
+                directionSymbolPreviousYcoord = directionSymbolYcoord;
+            }
+        }
+
+        else if(d == 2)
+        {
+            if(itsXcoord > 0)
+            {
+                map2[directionSymbolPreviousXcoord][directionSymbolPreviousYcoord] = directionSymbolPreviousValue;
+                directionSymbolXcoord = itsXcoord + 1;
+                directionSymbolYcoord = itsYcoord;
+                if(map2[directionSymbolXcoord][directionSymbolYcoord] != 7 && map2[directionSymbolXcoord][directionSymbolYcoord] != 5)
+                {
+                directionSymbolPreviousValue = map2[directionSymbolXcoord][directionSymbolYcoord];
+                }
+                map2[directionSymbolXcoord][directionSymbolYcoord] = 7;
+                directionSymbolPreviousXcoord = directionSymbolXcoord;
+                directionSymbolPreviousYcoord = directionSymbolYcoord;
+            }
+        }
+
+        else if(d == 3)
+        {
+            if(itsYcoord < 96)
+            {
+                map2[directionSymbolPreviousXcoord][directionSymbolPreviousYcoord] = directionSymbolPreviousValue;
+                directionSymbolXcoord = itsXcoord;
+                directionSymbolYcoord = itsYcoord - 1;
+                if(map2[directionSymbolXcoord][directionSymbolYcoord] != 7 && map2[directionSymbolXcoord][directionSymbolYcoord] != 5)
+                {
+                directionSymbolPreviousValue = map2[directionSymbolXcoord][directionSymbolYcoord];
+                }
+                map2[directionSymbolXcoord][directionSymbolYcoord] = 7;
+                directionSymbolPreviousXcoord = directionSymbolXcoord;
+                directionSymbolPreviousYcoord = directionSymbolYcoord;
+            }
+        }
+
+        else if(d == 4)
+        {
+            if(itsYcoord > 0)
+            {
+                map2[directionSymbolPreviousXcoord][directionSymbolPreviousYcoord] = directionSymbolPreviousValue;
+                directionSymbolXcoord = itsXcoord;
+                directionSymbolYcoord = itsYcoord + 1;
+                if(map2[directionSymbolXcoord][directionSymbolYcoord] != 7 && map2[directionSymbolXcoord][directionSymbolYcoord] != 5)
+                {
+                directionSymbolPreviousValue = map2[directionSymbolXcoord][directionSymbolYcoord];
+                }
+                map2[directionSymbolXcoord][directionSymbolYcoord] = 7;
+                directionSymbolPreviousXcoord = directionSymbolXcoord;
+                directionSymbolPreviousYcoord = directionSymbolYcoord;
+            }
+        }
+    }
+
     void setXcordm(int a){ // decreases the X value, character moves up
         if(itsXcoord > 0)
         {
@@ -328,23 +414,24 @@ public:
 
     int printCharacter() // sets character previous value/coordinates , updates the information of the map
     {
+        setDirectionSymbolCoord(directionSymbol);
         int a = itsXcoord,b = itsYcoord;
         int ma= monster1Xcoord, mb = monster1Ycoord;
         int px = itsPreviousXcoord;
         int pmx = monster1PreviousXcoord;
-        itsPreviousXcoord = itsXcoord;
-        monster1PreviousXcoord = monster1Xcoord;
+        itsPreviousXcoord = a;
+        monster1PreviousXcoord = ma;
         int py = itsPreviousYcoord;
         int pmy = monster1PreviousYcoord;
-        itsPreviousYcoord = itsYcoord;
-        monster1PreviousYcoord = monster1Ycoord;
+        itsPreviousYcoord = b;
+        monster1PreviousYcoord = mb;
         int pv = itsPreviousValue;
         int pmv = monster1PreviousValue;
-        if(map2[a][b] != 2)
+        if(map2[a][b] != 2 && map2[a][b] != 7)
         {
             itsPreviousValue = map2[a][b];
         }
-        if(map2[ma][mb] != 5 && map2[ma][mb] != 2)
+        if(map2[ma][mb] != 5 && map2[ma][mb] != 2 && map2[ma][mb] != 7)
         {
             monster1PreviousValue = map2[ma][mb];
         }
@@ -402,7 +489,19 @@ public:
                 switch ( ( c = getch() ) ) {
 
                 case KEY_UP:
-                    if (map2[itsXcoord -1][itsYcoord] != 1) //----> Water movement correction
+                    if(directionSymbol == 1 && directionSymbolPreviousValue != 1)
+                       {
+                           if(maptXcoord>0 && maptXcoord == itsXcoord - 9)
+                        {
+                            maptXcoord--;
+                        }
+                        setXcordm(1);
+                        setMonsterCoordNew();
+                        directionSymbol = 1;
+                        printCharacter();
+                        break;
+                       }
+                    else if (map2[itsXcoord -1][itsYcoord] != 1 && directionSymbol != 1) //----> Water movement correction
                     {
                         if(maptXcoord>0 && maptXcoord == itsXcoord - 9)
                         {
@@ -410,13 +509,30 @@ public:
                         }
                         setXcordm(1);
                         setMonsterCoordNew();
+                        directionSymbol = 1;
                         printCharacter();
                         break;
                     }
-                    else{break;}
+                    else{
+                        directionSymbol = 1;
+                        printCharacter();
+                            break;}
+
 
                 case KEY_DOWN:
-                    if (map2[itsXcoord +1][itsYcoord] != 1) //----> Water movement correction
+                    if(directionSymbol == 2 && directionSymbolPreviousValue != 1)
+                       {
+                           if(maptXcoord<79 && maptXcoord == itsXcoord - 9)
+                        {
+                            maptXcoord++;
+                        }
+                        setXcordp(1);
+                        setMonsterCoordNew();
+                        directionSymbol = 2;
+                        printCharacter();
+                        break;
+                       }
+                    else if (map2[itsXcoord +1][itsYcoord] != 1 && directionSymbol != 2) //----> Water movement correction
                     {
 
 
@@ -426,32 +542,68 @@ public:
                     }
                         setXcordp(1);
                         setMonsterCoordNew();
+                        directionSymbol = 2;
                         printCharacter();
                         break;
                     }
                     else
+                    {
+                        directionSymbol =2;
+                        printCharacter();
                         break;
+                    }
 
 
                 case KEY_LEFT:
-                    if (map2[itsXcoord][itsYcoord -1] != 1) //----> Water movement correction
-                    {
-
-
-                    if(maptYcoord>0 && maptYcoord == itsYcoord - 14)
-                    {
-                        maptYcoord--;
-                    }
+                    if(directionSymbol == 3 && directionSymbolPreviousValue != 1)
+                       {
+                           if(maptYcoord>0 && maptYcoord == itsYcoord - 9)
+                        {
+                            maptYcoord--;
+                        }
                         setYcordm(1);
                         setMonsterCoordNew();
+                        directionSymbol = 3;
+                        printCharacter();
+                        break;
+                       }
+
+                    else if (map2[itsXcoord][itsYcoord -1] != 1 && directionSymbol != 3) //----> Water movement correction
+                    {
+                        if(maptYcoord>0 && maptYcoord == itsYcoord - 9)
+                        {
+                            maptYcoord--;
+                        }
+                        setYcordm(1);
+                        setMonsterCoordNew();
+                        directionSymbol = 3;
                         printCharacter();
                         break;
                     }
+
                     else
+                    {
+                        directionSymbol = 3;
+                        printCharacter();
                         break;
+                    }
+
 
                 case KEY_RIGHT:
-                    if (map2[itsXcoord][itsYcoord +1] != 1) //----> Water movement correction
+                    if(directionSymbol == 4 && directionSymbolPreviousValue != 1)
+                    {
+                        if(maptYcoord<69 && maptYcoord == itsYcoord -14)
+                    {
+                        maptYcoord++;
+                    }
+                        setYcordp(1);
+                        setMonsterCoordNew();
+                        directionSymbol = 4;
+                        printCharacter();
+                        break;
+                    }
+
+                    else if (map2[itsXcoord][itsYcoord +1] != 1 && directionSymbol != 4) //----> Water movement correction
                     {
 
 
@@ -461,11 +613,16 @@ public:
                     }
                         setYcordp(1);
                         setMonsterCoordNew();
+                        directionSymbol = 4;
                         printCharacter();
                         break;
                     }
                     else
+                    {
+                        directionSymbol = 4;
+                        printCharacter();
                         break;
+                    }
 
                 case KEY_SPACEBAR:
 

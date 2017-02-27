@@ -488,7 +488,14 @@ public:
         }
         else if (pv == 6)
         {
-            food++; //adds 1 food to the resources
+            if (energy < 1)
+            {
+                energy += 1;
+            }
+            else
+            {
+                food++; //adds 1 food to the resources
+            }
         }
 
     }

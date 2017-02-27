@@ -222,11 +222,7 @@ public:
                 }
                 else if(map2[i][j] == 8)
                 {
-            +        monster1Xcoord = 60;
- +        monster1Ycoord = 60;
- +        monster1PreviousXcoord = 60;
- +        monster1PreviousYcoord = 60;
- +        monster1PreviousValue = map2[60][60];        SetConsoleTextAttribute(hConsole,10); // changes the colour to green
+                    SetConsoleTextAttribute(hConsole,10); // changes the colour to green
                     cout << "#"; //Wood Block
                 }
                 else if(map2[i][j] == 9)

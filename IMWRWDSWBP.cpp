@@ -3,6 +3,7 @@
 #include<conio.h>
 #include<string.h>
 #include<cstdlib>
+#include "libsqlite.hpp"
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 using namespace std;
 #define KEY_UP 72

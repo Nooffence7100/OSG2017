@@ -145,7 +145,6 @@ public:
     int directionSymbolPreviousYcoord;
     int directionSymbolPreviousValue;
     bool backpack;
-    double energy;
 
     void setStartingValues() // sets the starting values of the variables
     {
@@ -157,11 +156,11 @@ public:
         itsPreviousXcoord = 54;
         itsPreviousYcoord = 59;
         itsPreviousValue = map2[54][59];
-        monster1Xcoord = 62;
-        monster1Ycoord = 65;
-        monster1PreviousXcoord = 62;
-        monster1PreviousYcoord = 65;
-        monster1PreviousValue = map2[62][65];
+        monster1Xcoord = 60;
+        monster1Ycoord = 60;
+        monster1PreviousXcoord = 60;
+        monster1PreviousYcoord = 60;
+        monster1PreviousValue = map2[60][60];
         directionSymbol = 0;
         directionSymbolPreviousXcoord = 0;
         directionSymbolPreviousYcoord = 0;
@@ -169,7 +168,6 @@ public:
         stone = 0;
         food = 0;
         wood = 0;
-        energy = 5;
     }
     void createMap2() // function to print the map on the screen
     {
@@ -275,7 +273,7 @@ public:
 
         if(mnp == 1) // zombie goes down
         {
-            if(monster1Xcoord < 97)
+            if(monster1Xcoord < 97 && map2[monster1Xcoord + 1][monster1Ycoord] != 1 && map2[monster1Xcoord + 1][monster1Ycoord] != 9)
             {
                 monster1Xcoord++;
             }
@@ -286,7 +284,7 @@ public:
         }
         else if(mnp == 2) // zombie goes left
         {
-            if(monster1Ycoord > 0)
+            if(monster1Ycoord > 0 && map2[monster1Xcoord][monster1Ycoord - 1] != 1 && map2[monster1Xcoord][monster1Ycoord - 1] != 9)
             {
                 monster1Ycoord--;
             }
@@ -297,7 +295,7 @@ public:
         }
         else if(mnp == 3) // zombie goes right
         {
-            if(monster1Ycoord < 97)
+            if(monster1Ycoord < 97 && map2[monster1Xcoord][monster1Ycoord + 1] != 1 && map2[monster1Xcoord][monster1Ycoord + 1] != 9)
             {
                 monster1Ycoord++;
             }
@@ -309,7 +307,7 @@ public:
         }
         else if(mnp == 4) // zombie goes up
         {
-            if(monster1Xcoord > 0)
+            if(monster1Xcoord > 0 && map2[monster1Xcoord + 1][monster1Ycoord] != 1 && map2[monster1Xcoord + 1][monster1Ycoord] != 9)
             {
                 monster1Xcoord--;
             }
@@ -456,9 +454,7 @@ public:
         createMap2();
         cout<<"                          Stones: "<<stone;
         cout<<"   Wood: "<<wood;
-        cout<<"   Food: "<<food<<endl;
-        cout<<"                         Energy:  "<<energy;
-        cout<<"   To Open BP Press F3"<<endl;
+        cout<<"   Food: "<<food<<endl<<"                                To Open BP Press F3"<<endl;
         }
         else if(backpack == true)
         {
@@ -467,12 +463,6 @@ public:
         if(map2[a][b]==map2[ma][mb])
         {
             cout<<"You were eaten!"<<endl;
-            exit(0);
-        }
-        else if(energy < 0.05)
-        {
-            energy = 0;
-            cout<<"You are dead!"<<endl;
             exit(0);
         }
     }
@@ -488,14 +478,7 @@ public:
         }
         else if (pv == 6)
         {
-            if (energy < 1)
-            {
-                energy += 1;
-            }
-            else
-            {
-                food++; //adds 1 food to the resources
-            }
+            food++; //adds 1 food to the resources
         }
 
     }
@@ -520,7 +503,6 @@ public:
                         setXcordm(1);
                         setMonsterCoordNew();
                         directionSymbol = 1;
-                        energy -= 0.05;
                         printCharacter();
                         break;
                        }
@@ -533,7 +515,6 @@ public:
                         setXcordm(1);
                         setMonsterCoordNew();
                         directionSymbol = 1;
-                        energy -= 0.05;
                         printCharacter();
                         break;
                     }
@@ -553,7 +534,6 @@ public:
                         setXcordp(1);
                         setMonsterCoordNew();
                         directionSymbol = 2;
-                        energy -= 0.05;
                         printCharacter();
                         break;
                        }
@@ -568,7 +548,6 @@ public:
                         setXcordp(1);
                         setMonsterCoordNew();
                         directionSymbol = 2;
-                        energy -= 0.05;
                         printCharacter();
                         break;
                     }
@@ -590,7 +569,6 @@ public:
                         setYcordm(1);
                         setMonsterCoordNew();
                         directionSymbol = 3;
-                        energy -= 0.05;
                         printCharacter();
                         break;
                        }
@@ -604,7 +582,6 @@ public:
                         setYcordm(1);
                         setMonsterCoordNew();
                         directionSymbol = 3;
-                        energy -= 0.05;
                         printCharacter();
                         break;
                     }
@@ -623,12 +600,10 @@ public:
                         if(maptYcoord<69 && maptYcoord == itsYcoord -14) //checks for map location, so that the character does't leave the map
                     {
                         maptYcoord++;
-
                     }
                         setYcordp(1);
                         setMonsterCoordNew();
                         directionSymbol = 4;
-                        energy -= 0.05;
                         printCharacter();
                         break;
                     }
@@ -644,7 +619,6 @@ public:
                         setYcordp(1);
                         setMonsterCoordNew();
                         directionSymbol = 4;
-                        energy -= 0.05;
                         printCharacter();
                         break;
                     }

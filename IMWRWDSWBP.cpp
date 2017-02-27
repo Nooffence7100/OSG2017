@@ -171,7 +171,7 @@ public:
     }
     void createMap2() // function to print the map on the screen
     {
-        SetConsoleTextAttribute(hConsole,14); // changes the color
+        SetConsoleTextAttribute(hConsole,14); // changes the colour
         cout<<"                         ###############################"<<endl;
         for(int i = maptXcoord ; i < maptXcoord + 19 ; i++)
         {
@@ -180,63 +180,64 @@ public:
             {
                 if(map2[i][j] == 0)
                 {
-                    SetConsoleTextAttribute(hConsole, 2); // changes the color
-                    cout << "$";
+                    SetConsoleTextAttribute(hConsole, 2); // changes the colour
+                    cout << "$"; //grass
                 }
                 else if(map2[i][j] == 1)
                 {
-                    SetConsoleTextAttribute(hConsole,9); // changes the color
-                    cout << "#";
+                    SetConsoleTextAttribute(hConsole,9); // changes the colour
+                    cout << "#";  //water
                 }
                 else if(map2[i][j] == 2)
                 {
-                    SetConsoleTextAttribute(hConsole,12); // changes the color
-                    cout << "X";
+                    SetConsoleTextAttribute(hConsole,12); // changes the colour
+                    cout << "X";  //player
                 }
                 else if(map2[i][j] == 3)
                 {
-                    SetConsoleTextAttribute(hConsole,6); // changes the color
+                    SetConsoleTextAttribute(hConsole,6); // changes the colour
                     cout << "R"; //stone
                 }
                 else if(map2[i][j] == 4)
                 {
-                    SetConsoleTextAttribute(hConsole,10); // changes the color
+                    SetConsoleTextAttribute(hConsole,10); // changes the colour
                     cout << "W"; //wood
                 }
                 else if(map2[i][j] == 5)
                 {
-                    SetConsoleTextAttribute(hConsole,14); // changes the color to gold
-                    cout << "Z";
+                    SetConsoleTextAttribute(hConsole,14); // changes the colour to gold
+                    cout << "Z"; //zombie
                 }
                 else if(map2[i][j] == 6)
                 {
-                    SetConsoleTextAttribute(hConsole,4); // changes the color
+                    SetConsoleTextAttribute(hConsole,4); // changes the colour
                     cout << "F"; //food
                 }
                 else if(map2[i][j] == 7)
                 {
-                    SetConsoleTextAttribute(hConsole,12); // changes the color to red
+                    SetConsoleTextAttribute(hConsole,12); // changes the colour to red
                     cout << "+"; //direction Symbol
                 }
                 else if(map2[i][j] == 8)
                 {
-                    SetConsoleTextAttribute(hConsole,10); // changes the color to green
+                    SetConsoleTextAttribute(hConsole,10); // changes the colour to green
                     cout << "#"; //Wood Block
                 }
                 else if(map2[i][j] == 9)
                 {
-                    SetConsoleTextAttribute(hConsole,6); // changes the color to brown
+                    SetConsoleTextAttribute(hConsole,6); // changes the colour to brown
                     cout << "#"; //Stone Block
                 }
         }
-        SetConsoleTextAttribute(hConsole,14); // changes the color
+        SetConsoleTextAttribute(hConsole,14); // changes the colour
         cout<<"#";
         cout << endl;
 
         }
-    SetConsoleTextAttribute(hConsole,14); // changes the color
+    SetConsoleTextAttribute(hConsole,14); // changes the colour
         cout<<"                         ###############################"<<endl;
     }
+
 
     void backPack() // prints the backpack, with current resources and resources needed to create stuff
     {
@@ -453,7 +454,7 @@ public:
         createMap2();
         cout<<"                          Stones: "<<stone;
         cout<<"   Wood: "<<wood;
-        cout<<"   Food: "<<food<<endl<<"                                To Open BP Press F2"<<endl;
+        cout<<"   Food: "<<food<<endl<<"                                To Open BP Press F3"<<endl;
         }
         else if(backpack == true)
         {
@@ -558,7 +559,7 @@ public:
                     }
 
 
-                case KEY_LEFT: //character moves left when the left arrow key is pressed
+                case KEY_LEFT: //character moves ldirectionSymbolPreviousValueeft when the left arrow key is pressed
                     if(directionSymbol == 3 && directionSymbolPreviousValue != 1) //----> Water movement correction
                        {
                            if(maptYcoord>0 && maptYcoord == itsYcoord - 9) //checks for map location, so that the character does't leave the map
@@ -653,7 +654,7 @@ public:
                     }
 
                 case KEY_F1: // creates wood block when F1 is pressed
-                    if(wood>2 && directionSymbolPreviousValue != 9 && directionSymbolPreviousValue != 8)
+                    if(directionSymbolPreviousValue==1 && wood>2 && directionSymbolPreviousValue != 9 && directionSymbolPreviousValue != 8)
                     {
                     directionSymbolPreviousValue = 8;
                     wood = wood - 3;
@@ -663,7 +664,7 @@ public:
                     else break;
 
                 case KEY_F2: // creates stone block when F2 is pressed
-                    if(stone>2 && directionSymbolPreviousValue != 1 && directionSymbolPreviousValue != 9)
+                    if(directionSymbolPreviousValue==0 && stone>2 && directionSymbolPreviousValue != 1 && directionSymbolPreviousValue != 9)
                     {
                     directionSymbolPreviousValue = 9;
                     stone = stone - 3;

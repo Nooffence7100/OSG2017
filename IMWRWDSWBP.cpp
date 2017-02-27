@@ -145,6 +145,7 @@ public:
     int directionSymbolPreviousYcoord;
     int directionSymbolPreviousValue;
     bool backpack;
+    double energy;
 
     void setStartingValues() // sets the starting values of the variables
     {
@@ -168,6 +169,7 @@ public:
         stone = 0;
         food = 0;
         wood = 0;
+        energy = 5;
     }
     void createMap2() // function to print the map on the screen
     {
@@ -220,7 +222,11 @@ public:
                 }
                 else if(map2[i][j] == 8)
                 {
-                    SetConsoleTextAttribute(hConsole,10); // changes the colour to green
+            +        monster1Xcoord = 60;
+ +        monster1Ycoord = 60;
+ +        monster1PreviousXcoord = 60;
+ +        monster1PreviousYcoord = 60;
+ +        monster1PreviousValue = map2[60][60];        SetConsoleTextAttribute(hConsole,10); // changes the colour to green
                     cout << "#"; //Wood Block
                 }
                 else if(map2[i][j] == 9)
@@ -454,7 +460,9 @@ public:
         createMap2();
         cout<<"                          Stones: "<<stone;
         cout<<"   Wood: "<<wood;
-        cout<<"   Food: "<<food<<endl<<"                                To Open BP Press F3"<<endl;
+        cout<<"   Food: "<<food<<endl;
+        cout<<"                         Energy:  "<<energy;
+        cout<<"   To Open BP Press F3"<<endl;
         }
         else if(backpack == true)
         {
@@ -463,6 +471,12 @@ public:
         if(map2[a][b]==map2[ma][mb])
         {
             cout<<"You were eaten!"<<endl;
+            exit(0);
+        }
+        else if(energy < 0.05)
+        {
+            energy = 0;
+            cout<<"You are dead!"<<endl;
             exit(0);
         }
     }
@@ -478,7 +492,14 @@ public:
         }
         else if (pv == 6)
         {
-            food++; //adds 1 food to the resources
+            if (energy < 1)
+            {
+                energy += 1;
+            }
+            else
+            {
+                food++; //adds 1 food to the resources
+            }
         }
 
     }
@@ -503,6 +524,7 @@ public:
                         setXcordm(1);
                         setMonsterCoordNew();
                         directionSymbol = 1;
+                        energy -= 0.05;
                         printCharacter();
                         break;
                        }
@@ -515,6 +537,7 @@ public:
                         setXcordm(1);
                         setMonsterCoordNew();
                         directionSymbol = 1;
+                        energy -= 0.05;
                         printCharacter();
                         break;
                     }
@@ -534,6 +557,7 @@ public:
                         setXcordp(1);
                         setMonsterCoordNew();
                         directionSymbol = 2;
+                        energy -= 0.05;
                         printCharacter();
                         break;
                        }
@@ -548,6 +572,7 @@ public:
                         setXcordp(1);
                         setMonsterCoordNew();
                         directionSymbol = 2;
+                        energy -= 0.05;
                         printCharacter();
                         break;
                     }
@@ -569,6 +594,7 @@ public:
                         setYcordm(1);
                         setMonsterCoordNew();
                         directionSymbol = 3;
+                        energy -= 0.05;
                         printCharacter();
                         break;
                        }
@@ -582,6 +608,7 @@ public:
                         setYcordm(1);
                         setMonsterCoordNew();
                         directionSymbol = 3;
+                        energy -= 0.05;
                         printCharacter();
                         break;
                     }
@@ -600,10 +627,12 @@ public:
                         if(maptYcoord<69 && maptYcoord == itsYcoord -14) //checks for map location, so that the character does't leave the map
                     {
                         maptYcoord++;
+
                     }
                         setYcordp(1);
                         setMonsterCoordNew();
                         directionSymbol = 4;
+                        energy -= 0.05;
                         printCharacter();
                         break;
                     }
@@ -619,6 +648,7 @@ public:
                         setYcordp(1);
                         setMonsterCoordNew();
                         directionSymbol = 4;
+                        energy -= 0.05;
                         printCharacter();
                         break;
                     }

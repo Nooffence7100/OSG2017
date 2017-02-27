@@ -559,7 +559,7 @@ public:
                     }
 
 
-                case KEY_LEFT: //character moves ldirectionSymbolPreviousValueeft when the left arrow key is pressed
+                case KEY_LEFT: //character moves left when the left arrow key is pressed
                     if(directionSymbol == 3 && directionSymbolPreviousValue != 1) //----> Water movement correction
                        {
                            if(maptYcoord>0 && maptYcoord == itsYcoord - 9) //checks for map location, so that the character does't leave the map

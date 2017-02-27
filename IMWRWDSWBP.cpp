@@ -247,7 +247,7 @@ public:
         cout<<"                         #                             #"<<endl;
         cout<<"                         # Current resources available:#"<<endl;
         cout<<"                         #                             #"<<endl;
-        cout<<"                         #"; SetConsoleTextAttribute(hConsole,10); cout<<"    Wood: "<<wood; SetConsoleTextAttribute(hConsole,6); cout<<"   Stone: "<<stone; SetConsoleTextAttribute(hConsole,14); cout<<"       #"<<endl;
+        cout<<"                         #"; SetConsoleTextAttribute(hConsole,10); cout<<"    Wood: "<<wood; SetConsoleTextAttribute(hConsole,6);if(wood<99 && wood>9)cout<<" ";else if(wood<10)cout<<"  ";  cout<<" Stone: "<<stone; SetConsoleTextAttribute(hConsole,14);if(stone>9 && stone <99) cout<<" ";else if(stone<10)cout<<"  "; cout<<"     #"<<endl;
         cout<<"                         #                             #"<<endl;
         cout<<"                         #"; SetConsoleTextAttribute(hConsole,4); cout<<"    Food: "<<food;SetConsoleTextAttribute(hConsole,11);cout<<"   Diamond: 0";SetConsoleTextAttribute(hConsole,14);cout<<"     #"<<endl;
         cout<<"                         #                             #"<<endl;
@@ -526,7 +526,7 @@ public:
                 case KEY_DOWN: //character moves down when the down arrow key is pressed
                     if(directionSymbol == 2 && directionSymbolPreviousValue != 1) //----> Water movement correction
                        {
-                           if(maptXcoord<79 && maptXcoord == itsXcoord - 9) //checks for map location, so that the character does't leave the map 
+                           if(maptXcoord<79 && maptXcoord == itsXcoord - 9) //checks for map location, so that the character does't leave the map
                         {
                             maptXcoord++;
                         }

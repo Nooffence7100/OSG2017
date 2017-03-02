@@ -472,6 +472,7 @@ public:
         else if(energy < 0.05)
         {
             energy = 0;
+            system(COLOR 04");
             cout<<"You are dead!"<<endl;
             exit(0);
         }
@@ -720,6 +721,7 @@ public:
 int main()
 {
     string start_game;
+    system("COLOR 02");
     cout << "Do you want to start the game?(Y/N)" << endl;
     cin >>  start_game;
 

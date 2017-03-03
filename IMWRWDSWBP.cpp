@@ -472,7 +472,7 @@ public:
         else if(energy < 0.05)
         {
             energy = 0;
-            system(COLOR 04");
+            system("COLOR 04");
             cout<<"You are dead!"<<endl;
             exit(0);
         }

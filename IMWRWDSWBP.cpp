@@ -471,10 +471,7 @@ public:
         }
         else if(energy < 0.05)
         {
-            energy = 0;
-            system("COLOR 04");
-            cout<<"You are dead!"<<endl;
-            exit(0);
+            gameOver();
         }
     }
     void add_resource(int pv) // resource counter
@@ -717,6 +714,47 @@ public:
     }
     while(1);
     }
+
+void gameOver()
+{
+    char response,y,Y,n,N;
+        cout<<"                         ###############################"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #          Game Over!         #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #           You Died          #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         #                             #"<<endl;
+        cout<<"                         ###############################"<<endl;
+/*
+        cout<<"Do you want to restart the game?(y/n)"<< endl;
+        cin >>  response;
+    if ((response == y) || (response ==  Y))
+    {
+
+            setStartingValues();
+            createMap2();
+            printCharacter();
+            characterMovement();
+    }
+    else if ((response == n) || (response == N))
+    {
+      exit(0);
+    }
+*/
+}
 };
 int main()
 {

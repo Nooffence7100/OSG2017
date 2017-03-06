@@ -260,7 +260,7 @@ public:
         cout<<"                         #                             #"<<endl;
         cout<<"                         #"; SetConsoleTextAttribute(hConsole,10); cout<<"    Wooden Block : 3 Wood.";SetConsoleTextAttribute(hConsole,14);cout<<"   #"<<endl;
         cout<<"                         #                             #"<<endl;
-        cout<<"                         #"; SetConsoleTextAttribute(hConsole,11); cout<<"  Diamond Armor: 7 Diamonds.";SetConsoleTextAttribute(hConsole,14);cout<<" #"<<endl;
+        cout<<"                         #"; SetConsoleTextAttribute(hConsole,11); cout<<"  Diamond Armour: 7 Diamonds.";SetConsoleTextAttribute(hConsole,14);cout<<" #"<<endl;
         cout<<"                         #                             #"<<endl;
         cout<<"                         #   To Exit Press F3 Again.   #"<<endl;
         cout<<"                         #                             #"<<endl;
@@ -519,6 +519,11 @@ public:
                         setMonsterCoordNew();
                         directionSymbol = 1;
                         energy -= 0.05;
+                        if (energy < 0.5 && food > 0)
+                        {
+                            energy += 1;
+                            food -= 1;
+                        }
                         printCharacter();
                         break;
                        }
@@ -532,6 +537,11 @@ public:
                         setMonsterCoordNew();
                         directionSymbol = 1;
                         energy -= 0.05;
+                        if (energy < 0.5 && food > 0)
+                        {
+                            energy += 1;
+                            food -= 1;
+                        }
                         printCharacter();
                         break;
                     }
@@ -552,6 +562,11 @@ public:
                         setMonsterCoordNew();
                         directionSymbol = 2;
                         energy -= 0.05;
+                        if (energy < 0.5 && food > 0)
+                        {
+                            energy += 1;
+                            food -= 1;
+                        }
                         printCharacter();
                         break;
                        }
@@ -567,6 +582,11 @@ public:
                         setMonsterCoordNew();
                         directionSymbol = 2;
                         energy -= 0.05;
+                        if (energy < 0.5 && food > 0)
+                        {
+                            energy += 1;
+                            food -= 1;
+                        }
                         printCharacter();
                         break;
                     }
@@ -589,6 +609,11 @@ public:
                         setMonsterCoordNew();
                         directionSymbol = 3;
                         energy -= 0.05;
+                        if (energy < 0.5 && food > 0)
+                        {
+                            energy += 1;
+                            food -= 1;
+                        }
                         printCharacter();
                         break;
                        }
@@ -603,6 +628,11 @@ public:
                         setMonsterCoordNew();
                         directionSymbol = 3;
                         energy -= 0.05;
+                        if (energy < 0.5 && food > 0)
+                        {
+                            energy += 1;
+                            food -= 1;
+                        }
                         printCharacter();
                         break;
                     }
@@ -627,6 +657,11 @@ public:
                         setMonsterCoordNew();
                         directionSymbol = 4;
                         energy -= 0.05;
+                        if (energy < 0.5 && food > 0)
+                        {
+                            energy += 1;
+                            food -= 1;
+                        }
                         printCharacter();
                         break;
                     }
@@ -643,6 +678,11 @@ public:
                         setMonsterCoordNew();
                         directionSymbol = 4;
                         energy -= 0.05;
+                        if (energy < 0.5 && food > 0)
+                        {
+                            energy += 1;
+                            food -= 1;
+                        }
                         printCharacter();
                         break;
                     }
@@ -701,8 +741,11 @@ public:
                     string exit_game;
                     cout<<"Do you want to exit?(Y/N) : ";
                     cin>> exit_game;
-                    if(exit_game == "Y" || exit_game == "y" || exit_game == "yes" || exit_game == "YES" || exit_game == "Yes"){
-                    exit(0);}
+                    if(exit_game == "Y" || exit_game == "y" || exit_game == "yes" || exit_game == "YES" || exit_game == "Yes")
+                        {
+                            exit(0);
+                        }
+
                     else
                     {
                         system("cls");
@@ -714,47 +757,46 @@ public:
     }
     while(1);
     }
-
-void gameOver()
-{
-    char response,y,Y,n,N;
-        cout<<"                         ###############################"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #          Game Over!         #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #           You Died          #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         #                             #"<<endl;
-        cout<<"                         ###############################"<<endl;
-/*
-        cout<<"Do you want to restart the game?(y/n)"<< endl;
-        cin >>  response;
-    if ((response == y) || (response ==  Y))
+    void gameOver()
     {
+     char response,y,Y,n,N;
+         cout<<"                         ###############################"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #          Game Over!         #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #           You Died          #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         #                             #"<<endl;
+         cout<<"                         ###############################"<<endl;
+ /*
+         cout<<"Do you want to restart the game?(y/n)"<< endl;
+         cin >>  response;
+     if ((response == y) || (response ==  Y))
+     {
 
-            setStartingValues();
-            createMap2();
-            printCharacter();
-            characterMovement();
-    }
-    else if ((response == n) || (response == N))
-    {
-      exit(0);
-    }
-*/
-}
+             setStartingValues();
+             createMap2();
+             printCharacter();
+             characterMovement();
+     }
+     else if ((response == n) || (response == N))
+     {
+       exit(0);
+     }
+ */
+ }
 };
 int main()
 {

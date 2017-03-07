@@ -759,7 +759,7 @@ public:
     }
     void gameOver()
     {
-     char response,y,Y,n,N;
+     char response;
          cout<<"                         ###############################"<<endl;
          cout<<"                         #                             #"<<endl;
          cout<<"                         #                             #"<<endl;
@@ -780,10 +780,10 @@ public:
          cout<<"                         #                             #"<<endl;
          cout<<"                         #                             #"<<endl;
          cout<<"                         ###############################"<<endl;
- /*
+ 
          cout<<"Do you want to restart the game?(y/n)"<< endl;
          cin >>  response;
-     if ((response == y) || (response ==  Y))
+     if ((response == "y") || (response ==  "Y"))
      {
 
              setStartingValues();
@@ -791,11 +791,11 @@ public:
              printCharacter();
              characterMovement();
      }
-     else if ((response == n) || (response == N))
+     else if ((response == "n") || (response == "N"))
      {
        exit(0);
      }
- */
+ 
  }
 };
 int main()

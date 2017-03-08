@@ -2,24 +2,50 @@
 #include<string>
 using namespace std;
 
+void classSelection()
+
+{
+    char tclass;
+
+    cout << "Type number for Dwarf class: \n\n";
+
+    cout << "1   Collector - crafting skills & energy \n";
+    cout << "2   Miner     - energy & health \n";
+    cout << "3   Builder   - crafting skills \n";
+    cout << "4   Warrior   - energy, health \n";
+    cout << "5   Farmer    - health & crafting skills \n";
+
+    cin >>  tclass;
+
+    cout << "You chose: " << tclass <<endl;
+
+
+}
+
 void theName()
 
 {
-    char name;
-    cout << "Welcome to OSG" << endl;
-    cout << "Name your character:  " << endl;
-    cin >> name;
-    
-     char character;
+    char myName;
+    cout << "Name of your character:  ";
+    cin >> myName;
+
+
+
+
 }
 
-void theCharacter()
+void theGender()
 
 {
-    char character;
-    cout << "Male or Female? " << endl;
-    cin >> character;
-    cout << " You chose: " << character << endl;
+    char gender;
+    char ok;
+    cout << "                           Welcome to The Fortress... \n" << endl;
+    cout << "An infinite world of opportunities, riddled with treasure and danger!" << endl;
+    cout << "Journey the vast land cautiously... here lurk monsters ready for Dwarf blood. \n" << endl;
+    cout << "Choose your Dwarf wisely... \n\n";
+    cout << "M or F? " << endl;
+    cin >> gender;
+
 
 
 }
@@ -28,7 +54,18 @@ void theCharacter()
 int main()
 
 {
-    theName();
-    theCharacter();
+    {
+        theGender();
+    }
+    {
+        classSelection();
+    }
+
+    {
+        theName();
+    }
+
+
+
     return 0;
 }

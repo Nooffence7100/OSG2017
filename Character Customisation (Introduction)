@@ -1,0 +1,33 @@
+#include <iostream>
+#include<string>
+using namespace std;
+
+void theName()
+
+{
+    char name;
+    cout << "Name your character:  " << endl;
+    cin >> name;
+    cout << "Welcome to OSG" << endl;
+     char character;
+}
+
+void theCharacter()
+
+{
+    char character;
+    cout << "Male or Female? " << endl;
+    cin >> character;
+    cout << " You chose: " << character << endl;
+
+
+}
+
+
+int main()
+
+{
+    theName();
+    theCharacter();
+    return 0;
+}

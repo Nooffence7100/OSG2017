@@ -6,9 +6,10 @@ void theName()
 
 {
     char name;
+    cout << "Welcome to OSG" << endl;
     cout << "Name your character:  " << endl;
     cin >> name;
-    cout << "Welcome to OSG" << endl;
+    
      char character;
 }
 

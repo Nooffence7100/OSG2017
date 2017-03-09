@@ -798,10 +798,57 @@ public:
  
  }
 };
+ void classSelection()
+    {
+        string tclass;
+
+        cout << "\nType your Dwarf class: \n\n";
+
+        cout << "1   Collector - crafting skills & energy \n";
+        cout << "2   Miner     - energy & health \n";
+        cout << "3   Builder   - crafting skills \n";
+        cout << "4   Warrior   - energy, health \n";
+        cout << "5   Farmer    - health & crafting skills \n";
+        cin >>  tclass;
+
+
+    }
+
+    void theName()
+
+    {
+        string myName;
+        cout << "\nName of your character:  " << endl;
+        cin >> myName;
+    }
+
+    void theGender()
+
+    {
+        string gender;
+        cout << "                           Welcome to The Fortress... \n" << endl;
+        cout << "An infinite world of opportunities, riddled with treasure and danger!" << endl;
+        cout << "Journey the vast land cautiously... here lurk monsters ready for Dwarf blood. \n" << endl;
+        cout << "Choose your Dwarf wisely... \n\n";
+        cout << "Male or Female? " << endl;
+        cin >> gender;
+    }  
 int main()
+    system("COlOR 02 ");
+    {
+
+        theGender();
+    }
+    {
+
+        classSelection();
+    }
+
+    {
+        theName();
+    }
 {
     string start_game;
-    system("COLOR 02");
     cout << "Do you want to start the game?(Y/N)" << endl;
     cin >>  start_game;
 

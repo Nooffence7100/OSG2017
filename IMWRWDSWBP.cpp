@@ -757,7 +757,7 @@ public:
     }
     while(1);
     }
-    void gameOver()
+    void gameOver() //displays when users has been depeated
     {
      char response;
          cout<<"                         ###############################"<<endl;
@@ -798,7 +798,7 @@ public:
  
  }
 };
-    void classSelection()
+    void classSelection() // users gets to what type of character they want
     {
         string tclass;
 
@@ -814,7 +814,7 @@ public:
 
     }
 
-    void theName()
+    void theName() // users gets to input their name
 
     {
         string myName;
@@ -822,7 +822,7 @@ public:
         cin >> myName;
     }
 
-    void theGender()
+    void theIntro() // users gets to input their gender
 
     {
         string gender;
@@ -837,7 +837,7 @@ int main()
     system("COlOR 02 ");
     {
 
-        theGender();
+        theIntro();
     }
     {
 

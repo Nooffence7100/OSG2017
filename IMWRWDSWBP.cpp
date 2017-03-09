@@ -798,7 +798,7 @@ public:
  
  }
 };
- void classSelection()
+    void classSelection()
     {
         string tclass;
 

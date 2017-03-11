@@ -825,13 +825,13 @@ public:
     void theIntro() // users gets to input their gender
 
     {
-        string gender;
+        string intro_gender;
         cout << "                           Welcome to The Fortress... \n" << endl;
         cout << "An infinite world of opportunities, riddled with treasure and danger!" << endl;
         cout << "Journey the vast land cautiously... here lurk monsters ready for Dwarf blood. \n" << endl;
         cout << "Choose your Dwarf wisely... \n\n";
         cout << "Male or Female? " << endl;
-        cin >> gender;
+        cin >> intro_gender;
     }  
 int main()
     system("COlOR 02 ");

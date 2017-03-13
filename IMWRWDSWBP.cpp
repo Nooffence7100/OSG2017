@@ -834,20 +834,12 @@ public:
         cin >> intro_gender;
     }  
 int main()
-    system("COlOR 02 ");
-    {
-
+  {
+    system("COLOR 02 ");
         theIntro();
-    }
-    {
-
         classSelection();
-    }
-
-    {
         theName();
-    }
-{
+      
     string start_game;
     cout << "Do you want to start the game?(Y/N)" << endl;
     cin >>  start_game;

@@ -1,0 +1,11 @@
+void CreateDb()
+{
+    sqlite::sqlite db( "Gamedb.sqlite" );
+
+    auto s = db.get_statement();
+    s->set_sql( "CREATE TABLE Players(Player_name VARCHAR2(15) PRIMARY KEY NOT NULL, Player_X_loc INTEGER(2)  NOT NULL, Player_Y_loc INTEGER(2) NOT NULL);");
+    s->prepare();
+    s->step();
+    //ss->set_sql("INSERT INTO Players (name, 25,25);");
+
+}

@@ -759,6 +759,7 @@ public:
     }
     void gameOver() //displays when users has been depeated
     {
+        system("CLS");
      char response;
          cout<<"                         ###############################"<<endl;
          cout<<"                         #                             #"<<endl;
@@ -780,8 +781,8 @@ public:
          cout<<"                         #                             #"<<endl;
          cout<<"                         #                             #"<<endl;
          cout<<"                         ###############################"<<endl;
- 
-         cout<<"Do you want to restart the game?(y/n)"<< endl;
+
+         /*cout<<"Do you want to restart the game?(y/n)"<< endl;
          cin >>  response;
      if ((response == "y") || (response ==  "Y"))
      {
@@ -795,7 +796,7 @@ public:
      {
        exit(0);
      }
- 
+*/
  }
 };
     void classSelection() // users gets to what type of character they want
@@ -810,7 +811,7 @@ public:
         cout << "4   Warrior   - energy, health \n";
         cout << "5   Farmer    - health & crafting skills \n";
         cin >>  tclass;
-        
+
         if ((tclass > "5") || (tclass == "0"))
             {
                 cout << " Error: You Entered Something Wrong";
@@ -826,14 +827,13 @@ public:
         string myName;
         cout << "\nName of your character:  " << endl;
         cin >> myName;
-        
+
         if (myName > " ")
             {
                 cout << "\nJourney safely... " << myName <<endl;
             }
-
+    }
     void theIntro() // users gets to input their gender
-
     {
         string intro_gender;
         cout << "                           Welcome to The Fortress... \n" << endl;
@@ -842,7 +842,7 @@ public:
         cout << "Choose your Dwarf wisely... \n\n";
         cout << "Male or Female? " << endl;
         cin >> intro_gender;
-        
+
         if ((intro_gender == "male") || (intro_gender == "female")||(intro_gender == "Male")|| (intro_gender == "Female")||(intro_gender == "MALE")|| (intro_gender == "FEMALE") )
             {
 
@@ -851,15 +851,15 @@ public:
 
             cout << "Error: You Entered Something Wrong";
             exit(0);
-        }
-    }  
+             }
+    }
 int main()
   {
     system("COLOR 02 ");
         theIntro();
         classSelection();
         theName();
-      
+
     string start_game;
     cout << "\nDo you want to start the game?(Y/N)" << endl;
     cin >>  start_game;

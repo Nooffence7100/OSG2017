@@ -774,7 +774,7 @@ public:
          cout<<"                         #           You Died          #"<<endl;
          cout<<"                         #                             #"<<endl;
          cout<<"                         #                             #"<<endl;
-         cout<<"                         #                             #"<<endl;
+         cout<<"                         #      Score:" << wood + stone + food <<"                #"<<endl;
          cout<<"                         #                             #"<<endl;
          cout<<"                         #                             #"<<endl;
          cout<<"                         #                             #"<<endl;

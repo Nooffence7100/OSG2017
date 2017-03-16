@@ -3,6 +3,7 @@
 #include<conio.h>
 #include<string.h>
 #include<cstdlib>
+#include"libsqlite.hpp"
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 using namespace std;
 #define KEY_UP 72
@@ -831,6 +832,10 @@ public:
         if (myName > " ")
             {
                 cout << "\nJourney safely... " << myName <<endl;
+                auto cur3 = db.get_statement();
+        		cur3->set_sql("INSERT INTO player (player_id, xCoord, yCoord) VALUES (?, 54, 59)");
+        		cur3->bind(1, myName);
+        		cur3->prepare();
             }
     }
     void theIntro() // users gets to input their gender
@@ -855,6 +860,23 @@ public:
     }
 int main()
   {
+
+  	sqlite::sqlite db( "firefly.sqlite" );
+
+  	auto cur = db.get_statement();
+	cur->set_sql( "CREATE TABLE player( player_id NUMBER(2) NOT NULL PRIMARY KEY,
+										name CHAR(20) NOT NULL,
+										xCoord NUMBER(4),
+										yCoord NUMBER(4))";
+	cur->prepare();
+
+	auto cur2 = db.get_statement();
+	cur2->set_sql("CREATE TABLE resources( wood VARCHAR2(4),
+										stone VARCHAR2(4),
+										food VARCHAR2(4),
+										diamond VARCHAR2(4))");
+	cur->prepare();
+
     system("COLOR 02 ");
         theIntro();
         classSelection();

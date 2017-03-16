@@ -758,7 +758,7 @@ public:
     }
     while(1);
     }
-    void gameOver() //displays when users has been depeated
+    void gameOver() //displays when users has been defeated
     {
         system("CLS");
      char response;
@@ -877,7 +877,7 @@ int main()
 										diamond VARCHAR2(4))");
 	cur->prepare();
 
-    system("COLOR 02 ");
+    system("COLOR 02 "); // color to text
         theIntro();
         classSelection();
         theName();

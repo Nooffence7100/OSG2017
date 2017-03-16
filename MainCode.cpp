@@ -485,7 +485,7 @@ public:
         {
             wood++; // adds 1 wood to the resources
         }
-        else if (pv == 6)
+        else
         {
             if (energy < 1)
             {
@@ -495,10 +495,9 @@ public:
             {
                 food++; //adds 1 food to the resources
             }
-        }
-
+	}
     }
-
+	    
    void characterMovement() // Character movement, key press monitor
     {
         int c = 0;

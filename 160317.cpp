@@ -261,7 +261,7 @@ public:
         cout<<"                         #                             #"<<endl;
         cout<<"                         #"; SetConsoleTextAttribute(hConsole,10); cout<<"    Wooden Block : 3 Wood.";SetConsoleTextAttribute(hConsole,14);cout<<"   #"<<endl;
         cout<<"                         #                             #"<<endl;
-        cout<<"                         #"; SetConsoleTextAttribute(hConsole,11); cout<<"  Diamond Armour: 7 Diamonds.";SetConsoleTextAttribute(hConsole,14);cout<<" #"<<endl;
+        cout<<"                         #"; SetConsoleTextAttribute(hConsole,11); cout<<"  Diamond Armour: 7 Diamonds.";SetConsoleTextAttribute(hConsole,14);cout<<"#"<<endl;
         cout<<"                         #                             #"<<endl;
         cout<<"                         #   To Exit Press F3 Again.   #"<<endl;
         cout<<"                         #                             #"<<endl;
@@ -473,6 +473,8 @@ public:
         else if(energy < 0.05)
         {
             gameOver();
+            exit(0);
+            Sleep(200);
         }
     }
     void add_resource(int pv) // resource counter
@@ -704,7 +706,8 @@ public:
                     printCharacter();
                     break;
 
-                case KEY_F3: //displays backpack when F3 is pressed
+                case KEY_F3://displays backpack when F3 is pressed
+                    if(energy>0){
                     if(backpack == true)
                     {
                         backpack = false;
@@ -716,6 +719,7 @@ public:
                         backpack = true;
                         printCharacter();
                         break;
+                    }
                     }
 
                 case KEY_F1: // creates wood block when F1 is pressed
@@ -772,10 +776,10 @@ public:
          cout<<"                         #                             #"<<endl;
          cout<<"                         #                             #"<<endl;
          cout<<"                         #                             #"<<endl;
-         cout<<"                         #           You Died          #"<<endl;
+         cout<<"                         #          You Died !         #"<<endl;
          cout<<"                         #                             #"<<endl;
          cout<<"                         #                             #"<<endl;
-         cout<<"                         #      Score:" << wood + stone + food <<"                #"<<endl;
+         cout<<"                         #           Score:" << wood + stone + food <<"           #"<<endl;
          cout<<"                         #                             #"<<endl;
          cout<<"                         #                             #"<<endl;
          cout<<"                         #                             #"<<endl;

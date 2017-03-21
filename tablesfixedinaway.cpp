@@ -803,10 +803,10 @@ public:
      }
 */
  }
-};
+
     void classSelection() // users gets to what type of character they want
     {
-        string tclass;
+        int tclass;
 
         cout << "\nType your Dwarf class: \n\n";
 
@@ -817,10 +817,12 @@ public:
         cout << "5   Farmer    - health & crafting skills \n";
         cin >>  tclass;
 
-        if ((tclass > "5") || (tclass == "0"))
+        if ((tclass > 5) || (tclass == 0))
             {
+                system("cls");
                 cout << " Error: You Entered Something Wrong";
-                exit(0);
+                cout<<" Please Try Again"<<endl;
+                classSelection();
             }
 
 
@@ -829,20 +831,37 @@ public:
     void theName() // users gets to input their name
 
     {
-        string myName;
+        char myName;
         cout << "\nName of your character:  " << endl;
         cin >> myName;
 
-        if (myName > " ")
-            {
                 cout << "\nJourney safely... " << myName <<endl;
+                cout<<"1"<<endl;
                 sqlite::sqlite db( "Gamedb.sqlite" );
+                cout<<"2"<<endl;
                 auto cur = db.get_statement();
-        		cur->set_sql("INSERT INTO player (player_name, xCoord, yCoord) VALUES (?, 54, 59);");
-        		cur->bind(1, myName);
+                cout<<"3"<<endl;
+        		cur->set_sql("INSERT INTO player(player_name, xcoord, ycoord) VALUES (?, ?, ?);");
+        		cout<<"4"<<endl;
+        		cur->bind(1,myName);
+        		cout<<"5"<<endl;
         		cur->prepare();
+        		cout<<"6"<<endl;
         		cur->step();
-            }
+        		cout<<"7"<<endl;
+        		cur->bind(2,itsXcoord);
+        		cout<<"8"<<endl;
+        		cur->prepare();
+        		cout<<"9"<<endl;
+        		cur->step();
+        		cout<<"10"<<endl;
+        		cur->bind(3,itsYcoord);
+        		cout<<"11"<<endl;
+        		cur->prepare();
+        		cout<<"12"<<endl;
+        		cur->step();
+        		cout<<"13"<<endl;
+
     }
     void theIntro() // users gets to input their gender
     {
@@ -864,6 +883,7 @@ public:
             exit(0);
              }
     }
+};
 int main()
   {
 
@@ -889,19 +909,20 @@ int main()
 try{
     cur = db.get_statement();
 	cout << "6" << endl;
-	cur->set_sql("CREATE TABLE IF NOT EXISTS resources(player_name VARCHAR2(15), FOREIGN KEY('player_name') REFERENCES player(player_name), wood NUMBER(4), stone NUMBER(4), food NUMBER(4), diamond NUMBER(4));");
+	cur->set_sql("CREATE TABLE IF NOT EXISTS resources(player_name VARCHAR2(15) REFERENCES player, wood NUMBER(4), stone NUMBER(4), food NUMBER(4), diamond NUMBER(4));");
 	cout << "7" << endl;
 	cur->prepare();
 	cout << "8" << endl;
 	cur->step();
 	cout << "9" << endl;
 }catch (sqlite::exception e ) { cerr << e.what() << endl;}
+        Character Hero;
+        Hero.theIntro();
+        Hero.classSelection();
 
-        theIntro();
-        classSelection();
-        theName();
-            Character Hero;
+
             Hero.setStartingValues();
+            //Hero.theName();
             Hero.createMap2();
             Hero.printCharacter();
             Hero.characterMovement();
@@ -925,12 +946,12 @@ try{
 	cur->prepare();
 	cur->step();
 
+        Character Hero;
+        Hero.theIntro();
+        Hero.classSelection();
 
-        theIntro();
-        classSelection();
-        //theName();
-            Character Hero;
             Hero.setStartingValues();
+            //Hero.theName();
             Hero.createMap2();
             Hero.printCharacter();
             Hero.characterMovement();
@@ -946,7 +967,7 @@ try{
 
 
     else if ((start_game == "no") || (start_game == "NO") || (start_game == "n") || (start_game == "N"))
-    cout << "You left the game" << endl;
+    cout << "You left the game" << endl;Hero.theName();
 
 
 

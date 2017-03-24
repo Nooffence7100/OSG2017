@@ -904,7 +904,7 @@ public:
         {
             cout << num << endl;
         }
-
+	exit(0);
     }
 
     void theIntro() // users gets to input their gender

@@ -3,6 +3,7 @@
 #include<conio.h>
 #include<string.h>
 #include<cstdlib>
+#include<vector>
 #include "libsqlite.hpp"
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 using namespace std;
@@ -150,6 +151,8 @@ public:
     double energy;
     string myName;
     int highscore;
+    vector <string> name;
+    vector <int> numbers;
 
     void setStartingValues() // sets the starting values of the variables
     {
@@ -873,6 +876,37 @@ public:
 
     }
 
+    void getValuesFromDatabase()
+    {
+        sqlite::sqlite db("GameDb.sqlite");
+        auto cur = db.get_statement();
+        cur->set_sql( "SELECT * FROM player WHERE player_name = '" + myName + "';");
+        cur->prepare();
+        while(cur->step())
+        {
+            name.emplace_back(cur->get_text(0));
+            numbers.emplace_back(cur->get_int(1));
+            numbers.emplace_back(cur->get_int(2));
+            numbers.emplace_back(cur->get_int(3));
+            numbers.emplace_back(cur->get_int(4));
+            numbers.emplace_back(cur->get_int(5));
+            numbers.emplace_back(cur->get_int(6));
+            numbers.emplace_back(cur->get_int(7));
+
+        }
+        system("cls");
+        for (string na : name)
+        {
+            cout << na << endl;
+        }
+
+        for (int num : numbers)
+        {
+            cout << num << endl;
+        }
+
+    }
+
     void theIntro() // users gets to input their gender
     {
         string intro_gender;
@@ -926,6 +960,7 @@ public:
         Hero.setStartingValues();
         Hero.createMap2();
         Hero.printCharacter();
+        Hero.getValuesFromDatabase();
         Hero.characterMovement();
 
         }
